@@ -13,9 +13,6 @@ import org.fossify.commons.helpers.SimpleContactsHelper
 import org.fossify.commons.helpers.ensureBackgroundThread
 import org.fossify.commons.models.PhoneNumber
 import org.fossify.commons.models.SimpleContact
-import org.fossify.messages.agent.AgentConfig
-import org.fossify.messages.agent.AgentEvent
-import org.fossify.messages.agent.AgentWorker
 import org.fossify.messages.extensions.getConversations
 import org.fossify.messages.extensions.getNameFromAddress
 import org.fossify.messages.extensions.getNotificationBitmap
@@ -26,6 +23,10 @@ import org.fossify.messages.extensions.messagesDB
 import org.fossify.messages.extensions.shouldUnarchive
 import org.fossify.messages.extensions.showReceivedMessageNotification
 import org.fossify.messages.extensions.updateConversationArchivedStatus
+import org.fossify.messages.gateway.GatewayConfig
+import org.fossify.messages.gateway.GatewayEvent
+import org.fossify.messages.gateway.GatewayWorker
+import org.fossify.messages.gateway.isAllowed
 import org.fossify.messages.helpers.ReceiverUtils.isMessageFilteredOut
 import org.fossify.messages.helpers.refreshConversations
 import org.fossify.messages.helpers.refreshMessages
@@ -157,10 +158,18 @@ class SmsReceiver : BroadcastReceiver() {
             bitmap = bitmap
         )
 
-        val agentConfig = AgentConfig(context)
-        val sender = address.normalizePhoneNumber()
-        if (agentConfig.enabled && sender in agentConfig.allowlist) {
-            AgentWorker.enqueue(context, AgentEvent(sender, body, date))
+        val gatewayConfig = GatewayConfig(context)
+        val number = address.normalizePhoneNumber()
+        if (gatewayConfig.enabled && isAllowed(number, gatewayConfig.allowlist)) {
+            val event = GatewayEvent(
+                kind = "sms_received",
+                occurredAtMs = date,
+                number = number,
+                // getNameFromAddress returns the address itself when no contact matches
+                displayName = senderName.takeIf { it != address }.orEmpty(),
+                body = body
+            )
+            GatewayWorker.enqueue(context, event)
         }
     }
 }

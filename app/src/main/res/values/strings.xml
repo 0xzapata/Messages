@@ -183,11 +183,18 @@
     <string name="faq_4_text">You need to enable \"Send group messages as MMS\" in the app settings. This will ensure that group messages are sent as proper MMS, allowing all participants to see each other\'s replies.</string>
     <string name="play">Play</string>
     <string name="pause">Pause</string>
-    <!-- AI agent -->
-    <string name="ai_agent">AI agent</string>
-    <string name="agent_enabled">Reply to allowlisted SMS with the AI agent</string>
-    <string name="agent_allowlist">Allowlist, one number per line</string>
-    <string name="agent_saved">Saved</string>
+    <!-- Gateway -->
+    <string name="gateway">Gateway</string>
+    <string name="gateway_enabled">Send received SMS to the gateway</string>
+    <string name="gateway_url">Gateway URL (https://)</string>
+    <string name="gateway_token">Device token</string>
+    <string name="gateway_allowlist">Allowlist, one number per line (empty sends all)</string>
+    <string name="gateway_send_test">Send test event</string>
+    <string name="gateway_saved">Saved</string>
+    <string name="gateway_url_invalid">The gateway URL must start with https://</string>
+    <string name="gateway_test_queued">Test event queued</string>
+    <string name="gateway_failed_http">Gateway rejected an event: HTTP %d</string>
+    <string name="gateway_failed_network">Gateway unreachable, an event was dropped</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/FossifyOrg/Commons/tree/master/commons/src/main/res

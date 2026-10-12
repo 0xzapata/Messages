@@ -103,7 +103,7 @@ class SettingsActivity : SimpleActivity() {
         setupLanguage()
         setupManageBlockedNumbers()
         setupManageBlockedKeywords()
-        setupAgent()
+        setupGateway()
         setupChangeDateTimeFormat()
         setupFontSize()
         setupShowCharacterCounter()
@@ -220,8 +220,8 @@ class SettingsActivity : SimpleActivity() {
         }
     }
 
-    private fun setupAgent() = binding.settingsAgentHolder.setOnClickListener {
-        startActivity(Intent(this, AgentSettingsActivity::class.java))
+    private fun setupGateway() = binding.settingsGatewayHolder.setOnClickListener {
+        startActivity(Intent(this, GatewaySettingsActivity::class.java))
     }
 
     private fun setupChangeDateTimeFormat() = binding.apply {

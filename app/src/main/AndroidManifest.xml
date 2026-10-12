@@ -150,10 +150,10 @@
             android:parentActivityName=".activities.SettingsActivity" />
 
         <activity
-            android:name=".activities.AgentSettingsActivity"
+            android:name=".activities.GatewaySettingsActivity"
             android:configChanges="orientation"
             android:exported="false"
-            android:label="@string/ai_agent"
+            android:label="@string/gateway"
             android:parentActivityName=".activities.SettingsActivity" />
 
         <activity

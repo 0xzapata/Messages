@@ -5,44 +5,44 @@
     android:layout_height="match_parent">
 
     <org.fossify.commons.views.MyAppBarLayout
-        android:id="@+id/agent_appbar"
+        android:id="@+id/gateway_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/agent_toolbar"
+            android:id="@+id/gateway_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/color_primary"
-            app:title="@string/ai_agent"
+            app:title="@string/gateway"
             app:titleTextAppearance="@style/AppTheme.ActionBar.TitleTextStyle" />
 
     </org.fossify.commons.views.MyAppBarLayout>
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/agent_scrollview"
+        android:id="@+id/gateway_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
-            android:id="@+id/agent_holder"
+            android:id="@+id/gateway_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/agent_enabled_holder"
+                android:id="@+id/gateway_enabled_holder"
                 style="@style/SettingsHolderSwitchStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <org.fossify.commons.views.MyMaterialSwitch
-                    android:id="@+id/agent_enabled"
+                    android:id="@+id/gateway_enabled"
                     style="@style/SettingsSwitchStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/agent_enabled" />
+                    android:text="@string/gateway_enabled" />
 
             </RelativeLayout>
 
@@ -50,10 +50,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/activity_margin"
-                android:hint="@string/agent_allowlist">
+                android:hint="@string/gateway_url">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/agent_allowlist"
+                    android:id="@+id/gateway_url"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textUri" />
+
+            </org.fossify.commons.views.MyTextInputLayout>
+
+            <org.fossify.commons.views.MyTextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_margin"
+                android:hint="@string/gateway_token">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/gateway_token"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+
+            </org.fossify.commons.views.MyTextInputLayout>
+
+            <org.fossify.commons.views.MyTextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_margin"
+                android:hint="@string/gateway_allowlist">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/gateway_allowlist"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine|phone" />
@@ -61,11 +89,18 @@
             </org.fossify.commons.views.MyTextInputLayout>
 
             <org.fossify.commons.views.MyButton
-                android:id="@+id/agent_save"
+                android:id="@+id/gateway_save"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:text="@string/save" />
+
+            <org.fossify.commons.views.MyButton
+                android:id="@+id/gateway_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/activity_margin"
+                android:text="@string/gateway_send_test" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

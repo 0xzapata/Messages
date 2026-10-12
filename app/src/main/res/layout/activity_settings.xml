@@ -159,7 +159,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/settings_agent_holder"
+                android:id="@+id/settings_gateway_holder"
                 style="@style/SettingsHolderTextViewOneLinerStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -168,7 +168,7 @@
                     style="@style/SettingsTextLabelStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/ai_agent" />
+                    android:text="@string/gateway" />
 
             </RelativeLayout>
 
