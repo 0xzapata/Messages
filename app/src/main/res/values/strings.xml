@@ -174,7 +174,8 @@
     <!-- FAQ -->
     <string name="faq_1_title">Why does the app require access to the internet?</string>
     <string name="faq_1_text">Sadly it is needed for sending MMS attachments. Not being able to send MMS would be a really huge disadvantage compared to other apps, so we decided to go this way.
-    However, as usually, there are no ads, tracking or analytics whatsoever, the internet is used only for sending MMS.</string>
+    This fork also uses the internet to post received SMS to your private gateway, but only after you turn the gateway on in Settings.
+    However, as usually, there are no ads, tracking or analytics whatsoever. The internet is used only for sending MMS and, when you turn it on, for the gateway.</string>
     <string name="faq_2_title">The other end is not receiving my MMS, is there anything I can do about it?</string>
     <string name="faq_2_text">MMS size is limited by carriers, you can try setting a smaller limit in the app settings.</string>
     <string name="faq_3_title">Does the app support scheduled messages?</string>
@@ -183,6 +184,20 @@
     <string name="faq_4_text">You need to enable \"Send group messages as MMS\" in the app settings. This will ensure that group messages are sent as proper MMS, allowing all participants to see each other\'s replies.</string>
     <string name="play">Play</string>
     <string name="pause">Pause</string>
+    <!-- Gateway -->
+    <string name="gateway">Gateway</string>
+    <string name="gateway_enabled">Send received SMS to the gateway</string>
+    <string name="gateway_url">Gateway URL (https://)</string>
+    <string name="gateway_token">Device token</string>
+    <string name="gateway_allowlist">Allowlist, one number per line (empty sends all)</string>
+    <string name="gateway_send_test">Send test event</string>
+    <string name="gateway_saved">Saved</string>
+    <string name="gateway_url_invalid">The gateway URL must start with https://</string>
+    <string name="gateway_test_queued">Test event queued</string>
+    <string name="gateway_token_required">Enter the device token before you turn the gateway on</string>
+    <string name="gateway_enable_first">Turn the gateway on first</string>
+    <string name="gateway_failed_http">Gateway rejected an event: HTTP %d</string>
+    <string name="gateway_failed_network">Gateway unreachable, an event was dropped</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/FossifyOrg/Commons/tree/master/commons/src/main/res

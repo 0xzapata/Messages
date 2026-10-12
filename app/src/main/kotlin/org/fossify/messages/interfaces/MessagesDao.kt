@@ -50,6 +50,9 @@ interface MessagesDao {
     @Query("SELECT * FROM messages WHERE thread_id = :threadId AND id = :messageId AND is_scheduled = 1")
     fun getScheduledMessageWithId(threadId: Long, messageId: Long): Message
 
+    @Query("SELECT * FROM messages WHERE id = :id")
+    fun getMessageById(id: Long): Message?
+
     @Query("SELECT COUNT(*) FROM recycle_bin_messages")
     fun getArchivedCount(): Int
 

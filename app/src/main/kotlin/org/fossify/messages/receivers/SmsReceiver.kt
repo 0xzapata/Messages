@@ -7,6 +7,7 @@ import android.provider.Telephony
 import org.fossify.commons.extensions.baseConfig
 import org.fossify.commons.extensions.getMyContactsCursor
 import org.fossify.commons.extensions.isNumberBlocked
+import org.fossify.commons.extensions.normalizePhoneNumber
 import org.fossify.commons.helpers.ContactLookupResult
 import org.fossify.commons.helpers.SimpleContactsHelper
 import org.fossify.commons.helpers.ensureBackgroundThread
@@ -22,6 +23,10 @@ import org.fossify.messages.extensions.messagesDB
 import org.fossify.messages.extensions.shouldUnarchive
 import org.fossify.messages.extensions.showReceivedMessageNotification
 import org.fossify.messages.extensions.updateConversationArchivedStatus
+import org.fossify.messages.gateway.GatewayConfig
+import org.fossify.messages.gateway.GatewayEvent
+import org.fossify.messages.gateway.GatewayWorker
+import org.fossify.messages.gateway.isAllowed
 import org.fossify.messages.helpers.ReceiverUtils.isMessageFilteredOut
 import org.fossify.messages.helpers.refreshConversations
 import org.fossify.messages.helpers.refreshMessages
@@ -152,5 +157,20 @@ class SmsReceiver : BroadcastReceiver() {
             threadId = threadId,
             bitmap = bitmap
         )
+
+        val gatewayConfig = GatewayConfig(context)
+        val number = address.normalizePhoneNumber()
+        if (gatewayConfig.enabled && isAllowed(number, gatewayConfig.allowlist)) {
+            val event = GatewayEvent(
+                kind = "sms_received",
+                occurredAtMs = date,
+                number = number,
+                // getNameFromAddress returns the address itself when no contact matches
+                displayName = senderName.takeIf { it != address }.orEmpty(),
+                body = body,
+                messageId = newMessageId
+            )
+            GatewayWorker.enqueue(context, event)
+        }
     }
 }
