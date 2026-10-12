@@ -79,6 +79,8 @@ class GatewayClientTest {
         assertFalse(isGatewayUrl("http://gateway.example.ts.net"))
         assertFalse(isGatewayUrl("https://"))
         assertFalse(isGatewayUrl(""))
+        assertFalse(isGatewayUrl("https://gateway.example.ts.net/?key=x"))
+        assertFalse(isGatewayUrl("https://gateway.example.ts.net/#x"))
         assertTrue(isGatewayUrl("https://gateway.example.ts.net"))
         assertTrue(isGatewayUrl("https://gateway.example.ts.net/"))
     }

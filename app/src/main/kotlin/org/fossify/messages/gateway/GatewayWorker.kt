@@ -27,6 +27,7 @@ import java.time.Instant
 import java.time.temporal.ChronoUnit
 import java.util.UUID
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeoutException
 
 /** One event of the gateway contract, section "POST /v1/events (device)". Call fields stay null for SMS. */
 data class GatewayEvent(
@@ -75,6 +76,7 @@ private const val CONNECT_TIMEOUT_MS = 15_000
 private const val READ_TIMEOUT_MS = 30_000
 private const val BACKOFF_SECONDS = 30L
 private const val MAX_RETRIES = 10
+private const val ENQUEUE_WAIT_SECONDS = 5L
 
 fun eventJson(event: GatewayEvent): String = JSONObject()
     .put("id", event.id)
@@ -93,8 +95,11 @@ class GatewayWorker(context: Context, params: WorkerParameters) : Worker(context
 
     override fun doWork(): Result {
         val config = GatewayConfig(applicationContext)
+        val event = GatewayEvent.from(inputData)
+        // Settings can change while an event waits for the network: never post under old consent.
+        if (!config.enabled || !isAllowed(event.number, config.allowlist)) return Result.success()
         val code = try {
-            post(config.gatewayUrl, config.deviceToken, eventJson(GatewayEvent.from(inputData)))
+            post(config.gatewayUrl, config.deviceToken, eventJson(event))
         } catch (_: IOException) {
             null
         }
@@ -148,7 +153,13 @@ class GatewayWorker(context: Context, params: WorkerParameters) : Worker(context
                 .setInputData(event.toData())
                 .build()
             // Wait until the request is persisted: the SMS receiver process can die right after onReceive returns.
-            WorkManager.getInstance(context).enqueue(request).result.get()
+            // The wait is bounded because the receiver has a 10 s budget. The enqueue itself continues.
+            val operation = WorkManager.getInstance(context).enqueue(request)
+            try {
+                operation.result.get(ENQUEUE_WAIT_SECONDS, TimeUnit.SECONDS)
+            } catch (_: TimeoutException) {
+                // ponytail: the event is lost if the process dies in this window; use a foreground service if seen
+            }
         }
     }
 }

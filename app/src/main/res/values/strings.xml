@@ -193,6 +193,8 @@
     <string name="gateway_saved">Saved</string>
     <string name="gateway_url_invalid">The gateway URL must start with https://</string>
     <string name="gateway_test_queued">Test event queued</string>
+    <string name="gateway_token_required">Enter the device token before you turn the gateway on</string>
+    <string name="gateway_enable_first">Turn the gateway on first</string>
     <string name="gateway_failed_http">Gateway rejected an event: HTTP %d</string>
     <string name="gateway_failed_network">Gateway unreachable, an event was dropped</string>
     <!--

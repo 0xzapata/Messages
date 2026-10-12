@@ -50,9 +50,14 @@ class GatewaySettingsActivity : SimpleActivity() {
             toast(R.string.gateway_url_invalid)
             return false
         }
+        val token = binding.gatewayToken.text.toString().trim()
+        if (binding.gatewayEnabled.isChecked && token.isEmpty()) {
+            toast(R.string.gateway_token_required)
+            return false
+        }
         gatewayConfig.enabled = binding.gatewayEnabled.isChecked
         gatewayConfig.gatewayUrl = url
-        gatewayConfig.deviceToken = binding.gatewayToken.text.toString().trim()
+        gatewayConfig.deviceToken = token
         gatewayConfig.allowlist = binding.gatewayAllowlist.text.toString().lines()
             .map { it.trim().normalizePhoneNumber() }
             .filter { it.isNotBlank() }
@@ -63,10 +68,15 @@ class GatewaySettingsActivity : SimpleActivity() {
 
     private fun sendTestEvent() {
         if (!save()) return
+        if (!gatewayConfig.enabled) {
+            toast(R.string.gateway_enable_first)
+            return
+        }
+        // The first allowlist number keeps the test inside the allowlist, so the worker does not drop it.
         val event = GatewayEvent(
             kind = "sms_received",
             occurredAtMs = System.currentTimeMillis(),
-            number = "",
+            number = gatewayConfig.allowlist.firstOrNull().orEmpty(),
             displayName = "test",
             body = "test"
         )
