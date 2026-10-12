@@ -147,10 +147,13 @@ dependencies {
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.documentfile)
+    implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.androidx.lifecycle.process)
     implementation(libs.ez.vcard)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.bundles.room)
     ksp(libs.androidx.room.compiler)
+    testImplementation(libs.junit)
+    testImplementation(libs.json)
     detektPlugins(libs.compose.detekt)
 }

@@ -103,6 +103,7 @@ class SettingsActivity : SimpleActivity() {
         setupLanguage()
         setupManageBlockedNumbers()
         setupManageBlockedKeywords()
+        setupAgent()
         setupChangeDateTimeFormat()
         setupFontSize()
         setupShowCharacterCounter()
@@ -217,6 +218,10 @@ class SettingsActivity : SimpleActivity() {
                 startActivity(this)
             }
         }
+    }
+
+    private fun setupAgent() = binding.settingsAgentHolder.setOnClickListener {
+        startActivity(Intent(this, AgentSettingsActivity::class.java))
     }
 
     private fun setupChangeDateTimeFormat() = binding.apply {

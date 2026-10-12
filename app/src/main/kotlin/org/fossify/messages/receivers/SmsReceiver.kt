@@ -7,11 +7,15 @@ import android.provider.Telephony
 import org.fossify.commons.extensions.baseConfig
 import org.fossify.commons.extensions.getMyContactsCursor
 import org.fossify.commons.extensions.isNumberBlocked
+import org.fossify.commons.extensions.normalizePhoneNumber
 import org.fossify.commons.helpers.ContactLookupResult
 import org.fossify.commons.helpers.SimpleContactsHelper
 import org.fossify.commons.helpers.ensureBackgroundThread
 import org.fossify.commons.models.PhoneNumber
 import org.fossify.commons.models.SimpleContact
+import org.fossify.messages.agent.AgentConfig
+import org.fossify.messages.agent.AgentEvent
+import org.fossify.messages.agent.AgentWorker
 import org.fossify.messages.extensions.getConversations
 import org.fossify.messages.extensions.getNameFromAddress
 import org.fossify.messages.extensions.getNotificationBitmap
@@ -152,5 +156,12 @@ class SmsReceiver : BroadcastReceiver() {
             threadId = threadId,
             bitmap = bitmap
         )
+
+        val agentConfig = AgentConfig(context)
+        val sender = address.normalizePhoneNumber()
+        if (agentConfig.enabled && sender in agentConfig.allowlist) {
+            val event = AgentEvent(sender, body, threadId, subscriptionId, date)
+            AgentWorker.enqueue(context, "agent-${newMessageId.takeIf { it != 0L } ?: date}", event)
+        }
     }
 }
