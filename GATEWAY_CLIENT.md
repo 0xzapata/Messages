@@ -7,7 +7,7 @@ The phone is a thin client. It posts each received SMS to the private phone gate
 - One `sms_received` event per received SMS: `id`, `kind`, `occurred_at`, `number`, `display_name`, `body`.
 - `id` is a UUID v4. `occurred_at` is RFC 3339 UTC in seconds. `number` is the sender after `normalizePhoneNumber()`. `display_name` is the contact name, or empty when no contact matches.
 - Request: `POST <gateway URL>/v1/events` with `Authorization: Bearer <device token>` and `Content-Type: application/json`. Connect timeout 15 s, read timeout 30 s.
-- The body is cut at 3000 characters, because the event travels in WorkManager `Data` (10 KB limit).
+- The event travels in WorkManager `Data` (10 KB limit), so the `Data` copy of the body stops at 3000 characters. For a longer SMS the worker reads the full body back from the app database by message id, up to the contract maximum of 8000 characters. If the user deleted the SMS before the worker ran, the 3000-character copy is sent.
 
 ## When
 

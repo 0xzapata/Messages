@@ -167,7 +167,8 @@ class SmsReceiver : BroadcastReceiver() {
                 number = number,
                 // getNameFromAddress returns the address itself when no contact matches
                 displayName = senderName.takeIf { it != address }.orEmpty(),
-                body = body
+                body = body,
+                messageId = newMessageId
             )
             GatewayWorker.enqueue(context, event)
         }

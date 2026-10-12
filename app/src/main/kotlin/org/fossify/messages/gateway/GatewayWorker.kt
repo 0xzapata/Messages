@@ -14,6 +14,7 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import org.fossify.commons.extensions.notificationManager
+import org.fossify.messages.extensions.messagesDB
 import org.fossify.messages.R
 import org.json.JSONObject
 import java.io.IOException
@@ -39,13 +40,15 @@ data class GatewayEvent(
     val direction: String? = null,
     val durationS: Long? = null,
     val missed: Boolean? = null,
+    /** Row id of the SMS in the app database, 0 when unknown. Lets the worker read a long body in full. */
+    val messageId: Long = 0,
     val id: String = UUID.randomUUID().toString()
 ) {
     // Fields, not the JSON, go into Data: JSON escapes can grow a body 6x, past the 10 KB Data limit.
     fun toData() = workDataOf(
         "id" to id, "kind" to kind, "occurred_at" to occurredAtMs, "number" to number.take(MAX_NUMBER_CHARS),
         "display_name" to displayName.take(MAX_NAME_CHARS), "body" to body?.take(MAX_BODY_CHARS),
-        "direction" to direction, "duration_s" to durationS, "missed" to missed
+        "direction" to direction, "duration_s" to durationS, "missed" to missed, "message_id" to messageId
     )
 
     companion object {
@@ -59,6 +62,7 @@ data class GatewayEvent(
                 direction = it["direction"] as String?,
                 durationS = it["duration_s"] as Long?,
                 missed = it["missed"] as Boolean?,
+                messageId = it["message_id"] as Long,
                 id = it["id"] as String
             )
         }
@@ -69,9 +73,10 @@ private const val CHANNEL_ID = "gateway"
 private const val MAX_NUMBER_CHARS = 32
 private const val MAX_NAME_CHARS = 120
 
-// ponytail: body capped at 3000 chars to stay under the 10 KB WorkManager Data limit (contract allows 8000);
-// pass the message id and read the body in the worker if longer bodies matter
+// The Data copy of the body stops at 3000 chars (10 KB WorkManager Data limit). A longer body is read back
+// from the app database by message id in the worker, up to the contract maximum.
 private const val MAX_BODY_CHARS = 3000
+private const val CONTRACT_BODY_CHARS = 8000
 private const val CONNECT_TIMEOUT_MS = 15_000
 private const val READ_TIMEOUT_MS = 30_000
 private const val BACKOFF_SECONDS = 30L
@@ -95,7 +100,9 @@ class GatewayWorker(context: Context, params: WorkerParameters) : Worker(context
 
     override fun doWork(): Result {
         val config = GatewayConfig(applicationContext)
-        val event = GatewayEvent.from(inputData)
+        val event = GatewayEvent.from(inputData).let { e ->
+            if (e.body?.length == MAX_BODY_CHARS) e.copy(body = fullBody(e.messageId) ?: e.body) else e
+        }
         // Settings can change while an event waits for the network: never post under old consent.
         if (!config.enabled || !isAllowed(event.number, config.allowlist)) return Result.success()
         val code = try {
@@ -108,6 +115,12 @@ class GatewayWorker(context: Context, params: WorkerParameters) : Worker(context
             HTTP_UNAUTHORIZED, HTTP_BAD_REQUEST -> fail(code)
             else -> if (runAttemptCount >= MAX_RETRIES) fail(code) else Result.retry()
         }
+    }
+
+    /** The stored SMS, when it still exists. Null when the user deleted it before the worker ran. */
+    private fun fullBody(messageId: Long): String? {
+        if (messageId == 0L) return null
+        return applicationContext.messagesDB.getMessageById(messageId)?.body?.take(CONTRACT_BODY_CHARS)
     }
 
     private fun post(gatewayUrl: String, token: String, json: String): Int {

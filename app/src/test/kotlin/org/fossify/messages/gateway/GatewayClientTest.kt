@@ -66,9 +66,12 @@ class GatewayClientTest {
     @Test
     fun workDataKeepsIdAndCapsFieldsUnderTheDataLimit() {
         // '€' is 3 bytes in modified UTF-8, the worst case for the 10 KB WorkManager Data limit
-        val event = GatewayEvent("sms_received", at, "+4512345678", "€".repeat(500), body = "€".repeat(8000))
+        val event = GatewayEvent(
+            "sms_received", at, "+4512345678", "€".repeat(500), body = "€".repeat(8000), messageId = 42
+        )
         val restored = GatewayEvent.from(event.toData())
         assertEquals(event.id, restored.id)
+        assertEquals(42L, restored.messageId)
         assertEquals(3000, restored.body?.length)
         assertEquals(120, restored.displayName.length)
         assertEquals(null, restored.durationS)
