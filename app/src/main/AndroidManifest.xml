@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:installLocation="auto">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.WRITE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
@@ -33,6 +34,8 @@
         android:name=".App"
         android:allowBackup="true"
         android:appCategory="productivity"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_launcher_name"
         android:roundIcon="@mipmap/ic_launcher"
@@ -144,6 +147,13 @@
             android:configChanges="orientation"
             android:exported="false"
             android:label="@string/blocked_keywords"
+            android:parentActivityName=".activities.SettingsActivity" />
+
+        <activity
+            android:name=".activities.AgentSettingsActivity"
+            android:configChanges="orientation"
+            android:exported="false"
+            android:label="@string/ai_agent"
             android:parentActivityName=".activities.SettingsActivity" />
 
         <activity

@@ -12,6 +12,7 @@ androidx-constraintlayout = "2.2.2"
 androidx-swiperefreshlayout = "1.2.0"
 androidx-lifecycleprocess = "2.10.0"
 androidx-documentfile = "1.1.0"
+androidx-work = "2.12.0"
 #Eventbus
 eventbus = "3.3.1"
 #Room
@@ -30,12 +31,16 @@ app-build-javaVersion = "VERSION_17"
 app-build-kotlinJVMTarget = "17"
 #Helpers
 ez-vcard = "0.12.2"
+#Test
+junit = "4.13.2"
+json = "20250517"
 [libraries]
 #AndroidX
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-lifecycle-process = { module = "androidx.lifecycle:lifecycle-process", version.ref = "androidx-lifecycleprocess" }
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "androidx-swiperefreshlayout" }
 androidx-documentfile = { module = "androidx.documentfile:documentfile", version.ref = "androidx-documentfile" }
+androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "androidx-work" }
 #Room
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
@@ -50,6 +55,9 @@ mmslib = { module = "org.fossify:mmslib", version.ref = "mmslib" }
 eventbus = { module = "org.greenrobot:eventbus", version.ref = "eventbus" }
 #Helpers
 ez-vcard = { module = "com.googlecode.ez-vcard:ez-vcard", version.ref = "ez-vcard" }
+#Test
+junit = { module = "junit:junit", version.ref = "junit" }
+json = { module = "org.json:json", version.ref = "json" }
 #Kotlin
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 [bundles]

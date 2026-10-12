@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <org.fossify.commons.views.MyAppBarLayout
+        android:id="@+id/agent_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/agent_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/color_primary"
+            app:title="@string/ai_agent"
+            app:titleTextAppearance="@style/AppTheme.ActionBar.TitleTextStyle" />
+
+    </org.fossify.commons.views.MyAppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/agent_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:id="@+id/agent_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/agent_enabled_holder"
+                style="@style/SettingsHolderSwitchStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <org.fossify.commons.views.MyMaterialSwitch
+                    android:id="@+id/agent_enabled"
+                    style="@style/SettingsSwitchStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/agent_enabled" />
+
+            </RelativeLayout>
+
+            <org.fossify.commons.views.MyTextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_margin"
+                android:hint="@string/agent_base_url">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/agent_base_url"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textUri" />
+
+            </org.fossify.commons.views.MyTextInputLayout>
+
+            <org.fossify.commons.views.MyTextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_margin"
+                android:hint="@string/agent_claude_key">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/agent_claude_key"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+
+            </org.fossify.commons.views.MyTextInputLayout>
+
+            <org.fossify.commons.views.MyTextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_margin"
+                android:hint="@string/agent_model">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/agent_model"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+
+            </org.fossify.commons.views.MyTextInputLayout>
+
+            <org.fossify.commons.views.MyTextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_margin"
+                android:hint="@string/agent_effort">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/agent_effort"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+
+            </org.fossify.commons.views.MyTextInputLayout>
+
+            <org.fossify.commons.views.MyTextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_margin"
+                android:hint="@string/agent_jev_key">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/agent_jev_key"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+
+            </org.fossify.commons.views.MyTextInputLayout>
+
+            <org.fossify.commons.views.MyTextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_margin"
+                android:hint="@string/agent_daily_cap">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/agent_daily_cap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+
+            </org.fossify.commons.views.MyTextInputLayout>
+
+            <org.fossify.commons.views.MyTextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_margin"
+                android:hint="@string/agent_allowlist">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/agent_allowlist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine|phone" />
+
+            </org.fossify.commons.views.MyTextInputLayout>
+
+            <org.fossify.commons.views.MyButton
+                android:id="@+id/agent_choose_skills"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/activity_margin"
+                android:text="@string/agent_choose_skills" />
+
+            <org.fossify.commons.views.MyButton
+                android:id="@+id/agent_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/activity_margin"
+                android:text="@string/save" />
+
+            <org.fossify.commons.views.MyButton
+                android:id="@+id/agent_dry_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/activity_margin"
+                android:text="@string/agent_dry_test" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
