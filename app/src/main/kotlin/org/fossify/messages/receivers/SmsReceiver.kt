@@ -160,8 +160,7 @@ class SmsReceiver : BroadcastReceiver() {
         val agentConfig = AgentConfig(context)
         val sender = address.normalizePhoneNumber()
         if (agentConfig.enabled && sender in agentConfig.allowlist) {
-            val event = AgentEvent(sender, body, threadId, subscriptionId, date)
-            AgentWorker.enqueue(context, "agent-${newMessageId.takeIf { it != 0L } ?: date}", event)
+            AgentWorker.enqueue(context, AgentEvent(sender, body, date))
         }
     }
 }

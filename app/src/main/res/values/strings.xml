@@ -186,25 +186,8 @@
     <!-- AI agent -->
     <string name="ai_agent">AI agent</string>
     <string name="agent_enabled">Reply to allowlisted SMS with the AI agent</string>
-    <string name="agent_base_url">Claude base URL</string>
-    <string name="agent_claude_key">Claude API key</string>
-    <string name="agent_model">Model</string>
-    <string name="agent_effort">Effort</string>
-    <string name="agent_jev_key">Jev API key (blank skips the injection check)</string>
-    <string name="agent_daily_cap">Max sends per day</string>
     <string name="agent_allowlist">Allowlist, one number per line</string>
-    <string name="agent_choose_skills">Choose skills folder</string>
-    <string name="agent_skills_folder">Skills folder: %s</string>
-    <string name="agent_dry_test">Run dry test</string>
     <string name="agent_saved">Saved</string>
-    <string name="agent_allowlist_empty">Add one number to the allowlist first</string>
-    <string name="agent_dry_test_started">Dry test started. The result shows as a notification.</string>
-    <string name="agent_running">Agent is running</string>
-    <string name="agent_replied">Replied to %1$s: %2$s</string>
-    <string name="agent_dry_reply">Dry run, would reply to %1$s: %2$s</string>
-    <string name="agent_blocked">Blocked by Jev (%s)</string>
-    <string name="agent_no_action">No action</string>
-    <string name="agent_error">Agent error: %s</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/FossifyOrg/Commons/tree/master/commons/src/main/res

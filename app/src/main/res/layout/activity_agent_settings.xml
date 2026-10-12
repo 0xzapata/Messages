@@ -50,90 +50,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/activity_margin"
-                android:hint="@string/agent_base_url">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/agent_base_url"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textUri" />
-
-            </org.fossify.commons.views.MyTextInputLayout>
-
-            <org.fossify.commons.views.MyTextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/activity_margin"
-                android:hint="@string/agent_claude_key">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/agent_claude_key"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword" />
-
-            </org.fossify.commons.views.MyTextInputLayout>
-
-            <org.fossify.commons.views.MyTextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/activity_margin"
-                android:hint="@string/agent_model">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/agent_model"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
-
-            </org.fossify.commons.views.MyTextInputLayout>
-
-            <org.fossify.commons.views.MyTextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/activity_margin"
-                android:hint="@string/agent_effort">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/agent_effort"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
-
-            </org.fossify.commons.views.MyTextInputLayout>
-
-            <org.fossify.commons.views.MyTextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/activity_margin"
-                android:hint="@string/agent_jev_key">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/agent_jev_key"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword" />
-
-            </org.fossify.commons.views.MyTextInputLayout>
-
-            <org.fossify.commons.views.MyTextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/activity_margin"
-                android:hint="@string/agent_daily_cap">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/agent_daily_cap"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number" />
-
-            </org.fossify.commons.views.MyTextInputLayout>
-
-            <org.fossify.commons.views.MyTextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/activity_margin"
                 android:hint="@string/agent_allowlist">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -145,25 +61,11 @@
             </org.fossify.commons.views.MyTextInputLayout>
 
             <org.fossify.commons.views.MyButton
-                android:id="@+id/agent_choose_skills"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/activity_margin"
-                android:text="@string/agent_choose_skills" />
-
-            <org.fossify.commons.views.MyButton
                 android:id="@+id/agent_save"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:text="@string/save" />
-
-            <org.fossify.commons.views.MyButton
-                android:id="@+id/agent_dry_test"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/activity_margin"
-                android:text="@string/agent_dry_test" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
