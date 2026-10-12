@@ -22,3 +22,4 @@ The phone is a thin client. It posts each received SMS to the private phone gate
 - `201` or `200`: done. `400` or `401`: stop, and show one notification with the status code.
 - Any other status, an I/O error, or a timeout: retry with exponential backoff from 30 s. After 10 retries, stop and show one notification.
 - Notifications and logs never hold the body, the number, or the token.
+- Stale events: `occurred_at` is the receipt time, and the gateway rejects events older than 7 days with `400`. A phone that stays offline for more than 7 days therefore loses those events from the gateway, with one notification. The SMS itself stays in the app.
